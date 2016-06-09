@@ -10,3 +10,15 @@ For example:
 @import './variables/components';
 @import './themes/default';
 */
+
+
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300);
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: #72c4c0; /* Old browsers */
+  background: -moz-linear-gradient(top, #72c4c0 0%, #6bc36d 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #72c4c0 0%,#6bc36d 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #72c4c0 0%,#6bc36d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  color: #FFF;
+}
