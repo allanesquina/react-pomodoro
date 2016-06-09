@@ -22,7 +22,8 @@ export const actions = {
 // ------------------------------------
 const ACTION_HANDLERS = {
   [SET_TIME]: (state, action) => {
-    return state = action.payload;
+    state = action.payload
+    return state
   }
 }
 

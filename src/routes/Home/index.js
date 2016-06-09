@@ -9,7 +9,6 @@ export default (store) => ({
       injectReducer(store, { key: 'PomodoroReducer', reducer })
 
       cb(null, container)
-
-    }, 'Pomodoro');
+    }, 'Pomodoro')
   }
 })

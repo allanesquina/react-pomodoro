@@ -11,20 +11,20 @@ const RESET_LABEL = 'Reset'
 const POMODORO_TIME = 2000
 
 // http://stackoverflow.com/questions/21294302/converting-soundclouds-
-//milliseconds-to-minutes-and-seconds-with-javascript
-function millisToMinutesAndSeconds(millis) {
-  const minutes = Math.floor(millis / 60000);
-  const seconds = ((millis % 60000) / 1000).toFixed(0);
-  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+// milliseconds-to-minutes-and-seconds-with-javascript
+function millisToMinutesAndSeconds (millis) {
+  const minutes = Math.floor(millis / 60000)
+  const seconds = ((millis % 60000) / 1000).toFixed(0)
+  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
 }
 
-function playAudio(audio) {
+function playAudio (audio) {
   audio.currentTime = 0
   audio.play()
 }
 
 export class Pomodoro extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -42,14 +42,13 @@ export class Pomodoro extends React.Component {
     this.handleCloseAlertBox = this.handleCloseAlertBox.bind(this)
   }
 
-  _loadAudioFiles() {
-    let audioList = {};
+  _loadAudioFiles () {
     ['stop', 'start', 'alarm'].map((file) => {
-      this.audioList[file] = new Audio(`${file}.wav`);
-    });
+      this.audioList[file] = new Audio(`${file}.wav`)
+    })
   }
 
-  _startTime() {
+  _startTime () {
     playAudio(this.audioList.start)
     this._closeAlertBox()
     const interval = setInterval(() => {
@@ -65,51 +64,51 @@ export class Pomodoro extends React.Component {
     this.setState({ interval, isRunning: true })
   }
 
-  _openAlertBox() {
+  _openAlertBox () {
     playAudio(this.audioList.alarm)
     this.setState({isAlertBoxActivated: true})
   }
 
-  _closeAlertBox() {
+  _closeAlertBox () {
     this.setState({isAlertBoxActivated: false})
   }
 
-  _stopTime() {
+  _stopTime () {
     playAudio(this.audioList.stop)
     clearInterval(this.state.interval)
     this.setState({ isRunning: false })
   }
 
-  _resetTime() {
+  _resetTime () {
     clearInterval(this.state.interval)
-    this.props.setTime(POMODORO_TIME);
+    this.props.setTime(POMODORO_TIME)
     this.setState({ isRunning: false, time: POMODORO_TIME })
   }
 
-  handleTimeActions() {
+  handleTimeActions () {
     this[this.state.isRunning ? '_stopTime' : '_startTime']()
   }
 
-  handleResetAction() {
+  handleResetAction () {
     playAudio(this.audioList.stop)
     this._resetTime()
   }
 
-  handleCloseAlertBox() {
+  handleCloseAlertBox () {
     this._closeAlertBox()
   }
 
-  render() {
+  render () {
     const currentTime = millisToMinutesAndSeconds(this.props.currentTime)
     const actionLabel = this.state.isRunning ? STOP_LABEL : START_LABEL
     const { handleTimeActions, handleResetAction, handleCloseAlertBox } = this
     return (
       <div className={classes.wrapper}>
-        <Timer currentTime={currentTime}/>
-        <ActionButton text={actionLabel} onClick={handleTimeActions}/>
-        <ActionButton text={RESET_LABEL} onClick={handleResetAction}/>
+        <Timer currentTime={currentTime} />
+        <ActionButton text={actionLabel} onClick={handleTimeActions} />
+        <ActionButton text={RESET_LABEL} onClick={handleResetAction} />
         {(this.state.isAlertBoxActivated &&
-          <AlertBox onClick={handleCloseAlertBox}/>
+          <AlertBox onClick={handleCloseAlertBox} />
         )}
       </div>
     )
