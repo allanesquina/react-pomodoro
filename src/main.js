@@ -4,8 +4,8 @@ import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
 import rootReducer from './reducers'
 
-import './styles/core.scss';
-import './styles/_base.scss';
+import './styles/core.scss'
+import './styles/_base.scss'
 
 // ========================================================
 // Store and History Instantiation
@@ -32,7 +32,6 @@ if (__DEBUG__) {
 const MOUNT_NODE = document.getElementById('root')
 
 let render = () => {
-
   ReactDOM.render(
     <AppContainer
       store={store}
