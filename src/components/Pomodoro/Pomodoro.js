@@ -4,7 +4,7 @@ import ActionButton from './ActionButton'
 import AlertBox from './AlertBox'
 import Timer from './Timer'
 
-const Audio = Audio || (() => false)
+const Audio = window.Audio || (() => false)
 const START_LABEL = 'Start'
 const STOP_LABEL = 'Stop'
 const RESET_LABEL = 'Reset'
