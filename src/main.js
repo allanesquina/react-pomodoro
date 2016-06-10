@@ -5,7 +5,6 @@ import AppContainer from './containers/AppContainer'
 import rootReducer from './reducers'
 
 import './styles/core.scss'
-import './styles/_base.scss'
 
 // ========================================================
 // Store and History Instantiation
