@@ -8,8 +8,7 @@ const Audio = window.Audio || (() => false)
 const START_LABEL = 'Start'
 const STOP_LABEL = 'Stop'
 const RESET_LABEL = 'Reset'
-// const POMODORO_TIME = 25 * (60 * 1000)
-export const POMODORO_TIME = 3000
+const POMODORO_TIME = 25 * (60 * 1000)
 
 // http://stackoverflow.com/questions/21294302/converting-soundclouds-
 // milliseconds-to-minutes-and-seconds-with-javascript
