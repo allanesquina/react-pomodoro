@@ -4,11 +4,12 @@ import ActionButton from './ActionButton'
 import AlertBox from './AlertBox'
 import Timer from './Timer'
 
+const Audio = Audio || (() => false);
 const START_LABEL = 'Start'
 const STOP_LABEL = 'Stop'
 const RESET_LABEL = 'Reset'
 // const POMODORO_TIME = 25 * (60 * 1000)
-const POMODORO_TIME = 2000
+export const POMODORO_TIME = 3000
 
 // http://stackoverflow.com/questions/21294302/converting-soundclouds-
 // milliseconds-to-minutes-and-seconds-with-javascript
@@ -19,8 +20,10 @@ function millisToMinutesAndSeconds (millis) {
 }
 
 function playAudio (audio) {
-  audio.currentTime = 0
-  audio.play()
+  if (audio) {
+    audio.currentTime = 0
+    audio.play()
+  }
 }
 
 export class Pomodoro extends React.Component {
@@ -33,7 +36,7 @@ export class Pomodoro extends React.Component {
       time: POMODORO_TIME
     }
 
-    this.audioList = {}
+    this.state.audioList = {}
     this._loadAudioFiles()
     this.props.setTime(this.state.time)
 
@@ -44,12 +47,12 @@ export class Pomodoro extends React.Component {
 
   _loadAudioFiles () {
     ['stop', 'start', 'alarm'].map((file) => {
-      this.audioList[file] = new Audio(`${file}.wav`)
+      this.state.audioList[file] = new Audio(`${file}.wav`)
     })
   }
 
   _startTime () {
-    playAudio(this.audioList.start)
+    playAudio(this.state.audioList.start)
     this._closeAlertBox()
     const interval = setInterval(() => {
       if (this.state.time > 0) {
@@ -65,7 +68,7 @@ export class Pomodoro extends React.Component {
   }
 
   _openAlertBox () {
-    playAudio(this.audioList.alarm)
+    playAudio(this.state.audioList.alarm)
     this.setState({isAlertBoxActivated: true})
   }
 
@@ -74,7 +77,7 @@ export class Pomodoro extends React.Component {
   }
 
   _stopTime () {
-    playAudio(this.audioList.stop)
+    playAudio(this.state.audioList.stop)
     clearInterval(this.state.interval)
     this.setState({ isRunning: false })
   }
@@ -90,7 +93,7 @@ export class Pomodoro extends React.Component {
   }
 
   handleResetAction () {
-    playAudio(this.audioList.stop)
+    playAudio(this.state.audioList.stop)
     this._resetTime()
   }
 
@@ -115,9 +118,15 @@ export class Pomodoro extends React.Component {
   }
 }
 
+
 Pomodoro.propTypes = {
   currentTime: React.PropTypes.number.isRequired,
   setTime: React.PropTypes.func.isRequired
+}
+
+Pomodoro.defaultProps = {
+  setTime: () => false,
+  currentTime: 0
 }
 
 export default Pomodoro

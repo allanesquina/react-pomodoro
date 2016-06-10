@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { actions } from '../modules/PomodoroReducer'
+import { actions } from '../reducers/PomodoroReducer'
 
 import Pomodoro from 'components/Pomodoro'
 

@@ -1,13 +1,12 @@
 import { applyMiddleware, compose, createStore } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
-import makeRootReducer from './reducers'
+import rootReducer from '../reducers'
 
-export default (initialState = {}, history) => {
+export default (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk, routerMiddleware(history)]
+  const middleware = [thunk]
 
   // ======================================================
   // Store Enhancers
@@ -24,19 +23,17 @@ export default (initialState = {}, history) => {
   // Store Instantiation and HMR Setup
   // ======================================================
   const store = createStore(
-    makeRootReducer(),
+    rootReducer,
     initialState,
     compose(
       applyMiddleware(...middleware),
       ...enhancers
     )
   )
-  store.asyncReducers = {}
 
   if (module.hot) {
-    module.hot.accept('./reducers', () => {
-      const reducers = require('./reducers').default
-      store.replaceReducer(reducers)
+    module.hot.accept('../reducers', () => {
+      store.replaceReducer(rootReducer)
     })
   }
 
